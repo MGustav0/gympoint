@@ -182,28 +182,66 @@ Executa o arquivo do sucrase para não dar erro com o nodemon nas últimas confi
 
 ## Docker
   
-1. Para criar um container __Docker__ digite o seguinte comando necessariamente nesta ordem:
-
-```node
-docker run --name nome_da_imagem -e POSTGRES_PASSWORD=senha_do_BD -d -p porta_da_imagem:porta_de_saída_do_SO nome_da_imagem_no_HUB-Docker
-```
+1. Para criar um container __Docker__ digite o seguinte comando necessariamente nesta ordem (__postgres usado como exemplo__):
+  
+Alterar o __PASSWORD_OPTION__ pela opção do seu banco de dados:
+* Postgres: ```POSTGRES_PASSWORD```
+* MySQL: ```MYSQL_ROOT_PASSWORD```
+  
+```docker run --name nome_da_imagem -e PASSWORD_OPTION=senha_do_BD -d -p porta_da_imagem:porta_de_saída_do_SO nome_da_imagem_no_HUB-Docker nome_usuario_root```
+  
+### PostgreSQL
 
 Para criar uma imagem do **PostgreSQL**, basta colocar o seguinte comando no terminal:  
-
-* ```docker run --name database -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres```
-* Verificar se a imagem está rodando: ```docker ps```
-* Verificar os logs da imagem: ```docker logs nome_da_imagem```
   
+* ```docker run --name postgres01 -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres```
+* Verificar se a imagem está rodando: ```docker ps```
+* Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
+* Usuário: postgres
+* Senha: docker
+* Acesso pelo terminal: ```docker exec -it nome_do_container bash```
+  
+#### PGAdmin  
 Para criar uma imagem do **PGAdmin4**, basta colocar o comando no terminal:
   
-* ```docker run -p 5555:80 --name pgadmin -e 'PGADMIN_DEFAULT_EMAIL=postgres'-e 'PGADMIN_DEFAULT_PASSWORD=docker' dpage/pgadmin4```
+* ```docker run -p 5555:80 --name pgadmin01 -e 'PGADMIN_DEFAULT_EMAIL=postgres'-e 'PGADMIN_DEFAULT_PASSWORD=docker' dpage/pgadmin4```
 * Coloque a porta que estiver livre, no caso a **5555**.
 * O terminal ficará ocupado até o final da operação/uso.
 * Acesse pelo browser o [localhost](http://localhost:5555/ "localhost")
 * Nas configurações iniciais o **_host name/address_** deverá ser: ```host.docker.internal```
+  
+### MySQL
 
-
-# GitHub
+Para criar uma imagem do **MySQL**, basta colocar o seguinte comando no terminal:  
+  
+* ```docker run --name mysql01 -e MYSQL_ROOT_PASSWORD=docker -d -p 3306:3306 mysql```
+* Verificar se a imagem está rodando: ```docker ps```
+* Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
+* Usuário: postgres
+* Senha: docker
+* Acesso pelo terminal: ```docker exec -it nome_do_container bash```
+  
+#### phpMyAdmin  
+Para criar uma imagem do **phpMyAdmin4**, basta colocar o comando no terminal:
+  
+* ```docker run --name phpmyadmin01 -d --link mysql01:db -p 8080:80 phpmyadmin/phpmyadmin```
+* Coloque a porta que estiver livre, no caso a **8080**.
+* O terminal ficará ocupado até o final da operação/uso.
+* Acesse pelo browser o [localhost](http://localhost:8080/ "localhost")
+* Nas configurações iniciais o **_host name/address_** deverá ser: ```host.docker.internal```
+  
+**Obs.:** Caso não consiga acessar o phpMyAdmin por causa desses erros:
+  
+* ```#2054 - The server requested authentication method unknown to the client```
+* ```mysqli_real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]```
+* ```mysqli_real_connect(): (HY000/2054): The server requested authentication method unknown to the client```
+  
+Acesse a imagem utilizando o terminal e o comando de acesso pelo docker e execute esta sequência de comandos:
+  
+1. ```mysql -u root -p```
+2. ```ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'docker';```
+  
+## GitHub
 
 Create a new repository on the command line:
   
