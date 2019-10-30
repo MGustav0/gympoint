@@ -61,17 +61,21 @@
     }
 }
 ```
-<strong><h2>Dependências instaladas via Yarn:</h2></strong>
+## Dependências instaladas via Yarn:
 
-<p>**Front-end**</p><code>yarn add express</code>
+**Front-end**```yarn add express```
 
-<p>**Desenvolvimento**</p><code>yarn add typescript sucrase sequelize sequelize-cli prettier nodemon eslint -D</code>
+**Desenvolvimento**```yarn add typescript sucrase sequelize sequelize-cli prettier nodemon eslint -D```
 
-<strong><h2>ESLint</h2></strong>
+## ESLint
 
-<strong>Inicialização: </strong><p>Após instalação dar o comando para iniciar a configuração <code>yarn eslint --init</code></p>
-<p>Eu utilizo o padrão Standar de estilo do javascript</p>
-<p>Após inicializar, exclua o arquivo package-lock.json, caso esteja utilizando o Yarn, no terminal rode o comando: <code>yarn</code> para reconfigurar as dependencias no yarn.lock</p>
+**Inicialização:** Após instalação dar o comando para iniciar a configuração ```yarn eslint --init```
+Eu utilizo o padrão Standar de estilo do javascript
+Após inicializar, exclua o arquivo package-lock.json, caso esteja utilizando o Yarn, no terminal rode o comando: 
+```node
+yarn
+```
+para reconfigurar as dependencias no yarn.lock
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
