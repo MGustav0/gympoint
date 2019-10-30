@@ -190,7 +190,9 @@ docker run --name nome_da_imagem -e POSTGRES_PASSWORD=senha_do_BD -d -p porta_da
 
 Para criar uma imagem do **PostgreSQL**, basta colocar o seguinte comando no terminal:  
 
-* docker run --name database -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres
+* ```node
+docker run --name database -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres
+```
 * Verificar se a imagem está rodando: docker ps
 * Verificar os logs da imagem: docker logs nome_da_imagem
   
