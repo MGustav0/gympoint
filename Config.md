@@ -185,7 +185,8 @@ Executa o arquivo do sucrase para não dar erro com o nodemon nas últimas confi
 1. Para criar um container __Docker__ digite o seguinte comando necessariamente nesta ordem:
 
 ```terminal
-docker run --name nome_da_imagem -e POSTGRES_PASSWORD=senha_do_BD -d -p porta_da_imagem:porta_de_saída_do_SO nome_da_imagem_no_HUB-Docker```
+docker run --name nome_da_imagem -e POSTGRES_PASSWORD=senha_do_BD -d -p porta_da_imagem:porta_de_saída_do_SO nome_da_imagem_no_HUB-Docker
+```
 
 Para criar uma imagem do **PostgreSQL**, basta colocar o seguinte comando no terminal:  
 
