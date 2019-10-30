@@ -222,7 +222,7 @@ Para criar uma imagem do **MySQL**, basta colocar o seguinte comando no terminal
 * Acesso pelo terminal: ```docker exec -it nome_do_container bash```
   
 #### phpMyAdmin  
-Para criar uma imagem do **phpMyAdmin4**, basta colocar o comando no terminal:
+Para criar uma imagem do **phpMyAdmin4**, basta colocar o seguinte comando no terminal:
   
 * ```docker run --name phpmyadmin01 -d --link mysql01:db -p 8080:80 phpmyadmin/phpmyadmin```
 * Coloque a porta que estiver livre, no caso a **8080**.
