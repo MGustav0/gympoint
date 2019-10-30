@@ -63,11 +63,9 @@
 ```
 <strong><h2>Dependências instaladas via Yarn:</h2></strong>
 
-<p>Front-end</p>
-<code>yarn add express</code>
+<p>**Front-end**</p><code>yarn add express</code>
 
-<p>Desenvolvimento</p>
-<code>yarn add typescript sucrase sequelize sequelize-cli prettier nodemon eslint -D</code>
+<p>**Desenvolvimento**</p><code>yarn add typescript sucrase sequelize sequelize-cli prettier nodemon eslint -D</code>
 
 <strong><h2>ESLint</h2></strong>
 
