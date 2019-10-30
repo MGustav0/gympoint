@@ -63,7 +63,7 @@
 ```
 <strong><h2>Dependências instaladas via Yarn:</h2></strong>
 
-<p>Usuário</p>
+<p>Front-end</p>
 <code>yarn add express</code>
 
 <p>Desenvolvimento</p>
