@@ -190,28 +190,29 @@ docker run --name nome_da_imagem -e POSTGRES_PASSWORD=senha_do_BD -d -p porta_da
 
 Para criar uma imagem do **PostgreSQL**, basta colocar o seguinte comando no terminal:  
 
-* ```node
-docker run --name database -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres
-```
-* Verificar se a imagem está rodando: docker ps
-* Verificar os logs da imagem: docker logs nome_da_imagem
+* ```docker run --name database -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres```
+* Verificar se a imagem está rodando: ```docker ps```
+* Verificar os logs da imagem: ```docker logs nome_da_imagem```
   
 Para criar uma imagem do **PGAdmin4**, basta colocar o comando no terminal:
   
-* docker run -p 5555:80 --name pgadmin -e 'PGADMIN_DEFAULT_EMAIL=postgres'-e 'PGADMIN_DEFAULT_PASSWORD=docker' dpage/pgadmin4
-* Coloque a porta que estiver livre, no caso a 5555.
-* O terminal ficará ocupado até o final da operação.
+* ```docker run -p 5555:80 --name pgadmin -e 'PGADMIN_DEFAULT_EMAIL=postgres'-e 'PGADMIN_DEFAULT_PASSWORD=docker' dpage/pgadmin4```
+* Coloque a porta que estiver livre, no caso a **5555**.
+* O terminal ficará ocupado até o final da operação/uso.
 * Acesse pelo browser o [localhost](http://localhost:5555/ "localhost")
 * Nas configurações iniciais o **_host name/address_** deverá ser: ```host.docker.internal```
 
 
 # GitHub
-1. Create a new repository on the command line
-2. echo "# gympoint" >> README.md
-3. git init
-4. git add README.md
-5. git commit -m "first commit"
 
-## Pushing
+Create a new repository on the command line:
+  
+1. echo "# gympoint" >> README.md
+2. git init
+3. git add README.md
+4. git commit -m "first commit"
+
+Pushing:
+  
 1. git remote add origin git@github.com:MGustav0/gympoint.git
 2. git push -u origin master
