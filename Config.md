@@ -183,15 +183,12 @@ module.exports = {
 
 
 # GitHub
-<code>
-Create a new repository on the command line
-echo "# gympoint" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-</code>
+* Create a new repository on the command line
+* echo "# gympoint" >> README.md
+* git init
+* git add README.md
+* git commit -m "first commit"
+
 ## Pushing
-<code>
-git remote add origin git@github.com:MGustav0/gympoint.git
-git push -u origin master
-</code>
+* git remote add origin git@github.com:MGustav0/gympoint.git
+* git push -u origin master
