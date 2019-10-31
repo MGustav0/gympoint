@@ -66,7 +66,6 @@ class StudentController {
     /**Necessita passar o ID no parâmetro da URL para que o aluno seja encontrado no banco */
     const { id } = req.params
     const { email } = req.body
-    console.assert()
 
     /** Consulta no BD através da Primary Key fornecida na session. */
     let student = await Student.findByPk(id)
