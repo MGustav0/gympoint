@@ -1,10 +1,8 @@
 # Pasta "Models"
 
-<strong>Descrição: </strong><p>Aqui estão todos os arquivos de modelos que serão utilizados na aplicação. Sendo um arquivo para cada modelo.</p>
+**Descrição:** Aqui estão todos os arquivos de modelos que serão utilizados na aplicação. Sendo um arquivo para cada modelo.
 
-<strong>Arquivos</strong>
+## Arquivos
 
-<ol>
-    <li><strong>User.js: </strong></p>Utilizado para manipular dados de usuário, como criar, deletar, alterar, etc.</p></li>
-    <li><strong>.js: </strong></p></p></li>
-</ol>
+* **User.js:** Utilizado para manipular dados do usuário, como criar, deletar, alterar, etc.</p></* **Students.js:** Utilizado para manipular dados do aluno, como criar, deletar, alterar, etc.
+* **.js:** 
