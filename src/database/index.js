@@ -12,20 +12,20 @@ import databaseConfig from '../config/database'
 const models = [User, Student]
 
 class Database {
-  constructor() {
-    this.init()
-  }
+	constructor() {
+		this.init()
+	}
 
-  /** Responsável pela conexão com o BD */
-  init() {
-    /** Variável connection */
-    this.connection = new Sequelize(databaseConfig)
+	/** Responsável pela conexão com o BD */
+	init() {
+		/** Variável connection */
+		this.connection = new Sequelize(databaseConfig)
 
 		/** Percorrendo o array de models, retorna cada uma das classes dos models.
 		 * Chama o métodos "init" dentro de cada model passando a conexão "sequelize".
 		 */
-    models.map(model => model.init(this.connection))
-  }
+		models.map(model => model.init(this.connection))
+	}
 }
 
 export default new Database()
