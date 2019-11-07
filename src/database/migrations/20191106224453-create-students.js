@@ -21,18 +21,15 @@ module.exports = {
 			},
 			age: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
-				unique: true
+				allowNull: false
 			},
 			weight: {
 				type: Sequelize.DOUBLE,
-				allowNull: false,
-				unique: true
+				allowNull: false
 			},
 			height: {
 				type: Sequelize.DOUBLE,
-				allowNull: false,
-				unique: true
+				allowNull: false
 			},
 			created_at: {
 				type: Sequelize.DATE,

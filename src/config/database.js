@@ -5,7 +5,7 @@
 module.exports = {
 	dialect: 'mysql',
 	host: 'localhost',
-	username: 'mysql',
+	username: 'root',
 	password: 'docker',
 	database: 'gympoint',
 	define: {

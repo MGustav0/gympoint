@@ -165,6 +165,15 @@ module.exports = {
     'seeders-path': resolve(__dirname, 'src', 'database', 'seeds'),
 }
 ```
+### Sequelize: Uso
+
+* Criação da migration: ```yarn sequelize migration:create --name=create-students```
+* Inserir migration no BD: ```yarn sequelize db:migrate```
+* Desfazer última migration: ```yarn sequelize db:migrate:undo```
+* Desfazer todas as migrations: ```yarn sequelize db:migrate:undo:all```
+* Criar seeds para o BD: ```yarn sequelize seed:generate --name admin-user```
+* Executar o seed: ```yarn sequelize db:seed:all```
+* Executar um seed específico: ```yarn sequelize db:seed:all```
 
 ## Sucrase/Nodemon  
 
@@ -209,7 +218,31 @@ Para criar uma imagem do **PGAdmin4**, basta colocar o comando no terminal:
 * O terminal ficará ocupado até o final da operação/uso.
 * Acesse pelo browser o [localhost](http://localhost:5555/ "localhost")
 * Nas configurações iniciais o **_host name/address_** deverá ser: ```host.docker.internal```
+
+### MongoDB
+
+Para criar uma imagem do **MongoDB**, basta colocar o seguinte comando no terminal:  
   
+* Criar sem senha (recomendável para desenvolvimento): ```docker run --name mongobarber -p 27017:27017 -t mongo```
+* Criar com senha: ```docker run --name nome_de_producao -p 27017:27017 -e MONGODB_PASS="mypass" -t mongo```
+* Verificar se a imagem está rodando: ```docker ps```
+* Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
+* Usuário: 
+* Senha: 
+* Acesso pelo terminal: ```docker exec -it nome_do_container bash```
+  
+### Redis - Banco performático de chave/valor
+
+Para criar uma imagem do **Redis**, basta colocar o seguinte comando no terminal:  
+  
+* ```docker run --name redisbarber -p 6379:6379 -d -t redis:alpine```
+* O comando ```redis:apine``` traz as features mais essenciais do linux.
+* Verificar se a imagem está rodando: ```docker ps```
+* Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
+* Usuário: 
+* Senha: 
+* Acesso pelo terminal: ```docker exec -it nome_do_container bash```
+
 ### MySQL
 
 Para criar uma imagem do **MySQL**, basta colocar o seguinte comando no terminal:  
@@ -217,8 +250,6 @@ Para criar uma imagem do **MySQL**, basta colocar o seguinte comando no terminal
 * ```docker run --name mysql01 -e MYSQL_ROOT_PASSWORD=docker -d -p 3306:3306 mysql```
 * Verificar se a imagem está rodando: ```docker ps```
 * Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
-* Usuário: postgres
-* Senha: docker
 * Acesso pelo terminal: ```docker exec -it nome_do_container bash```
   
 #### phpMyAdmin  
@@ -226,7 +257,6 @@ Para criar uma imagem do **phpMyAdmin4**, basta colocar o seguinte comando no te
   
 * ```docker run --name phpmyadmin01 -d --link mysql01:db -p 8080:80 phpmyadmin/phpmyadmin```
 * Coloque a porta que estiver livre, no caso a **8080**.
-* O terminal ficará ocupado até o final da operação/uso.
 * Acesse pelo browser o [localhost](http://localhost:8080/ "localhost")
 * Nas configurações iniciais o **_host name/address_** deverá ser: ```host.docker.internal```
   
@@ -237,9 +267,10 @@ Para criar uma imagem do **phpMyAdmin4**, basta colocar o seguinte comando no te
 * ```mysqli_real_connect(): (HY000/2054): The server requested authentication method unknown to the client```
   
 Acesse a imagem utilizando o terminal e o comando de acesso pelo docker e execute esta sequência de comandos:
-  
-1. ```mysql -u root -p```
-2. ```ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'docker';```
+
+1. ```docker exec -it mysql01 bash``` - ```mysql01``` pode ser substituído pelo nome da imagem em uso.
+2. ```mysql -u root -p```
+3. ```ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'docker';```
   
 ## GitHub
 
