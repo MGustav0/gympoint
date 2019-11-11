@@ -4,24 +4,24 @@ import Mail from '../../lib/Mail'
 
 class EnrollmentMail {
 	get key() {
-		return 'EnrollmentMail'
+		return 'EnrollmentCreatedMail'
 	}
 
 	async handle({ data }) {
 		const { enrollment } = data
 
-		console.log('A fila executou')
+		/* console.log('A fila andou!')
 		console.log(enrollment)
 		console.log(
 			format(parseISO(enrollment.start_date), 'dd/MM/yyyy', {
 				locale: pt
 			})
-		)
+		) */
 
 		await Mail.sendMail({
 			to: `${enrollment.student.name} <${enrollment.student.email}>`,
 			subject: 'Matrícula confirmada',
-			template: 'enrollment',
+			template: 'enrollmentCreated',
 			context: {
 				student: enrollment.student.name,
 				plan: enrollment.plan.title,

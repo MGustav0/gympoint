@@ -1,4 +1,4 @@
-import Sequelize, { Model, DataTypes } from 'sequelize'
+import Sequelize, { Model } from 'sequelize'
 import {} from 'date-fns'
 
 class Enrollment extends Model {
@@ -9,24 +9,7 @@ class Enrollment extends Model {
 				plan_id: Sequelize.INTEGER,
 				start_date: Sequelize.DATE,
 				end_date: Sequelize.DATE,
-				price: Sequelize.FLOAT,
-				/** Para o plano estar ativo, deve se encontrar entre os períodos de início e fim */
-				active: {
-					type: new DataTypes.VIRTUAL(DataTypes.BOOLEAN, [
-						'start-date',
-						'end-date'
-					]),
-					get() {
-						const today = new Date()
-						if (
-							today >= this.get('start_date') &&
-							today <= this.get('end_date')
-						) {
-							return true
-						}
-						return false
-					}
-				}
+				price: Sequelize.FLOAT
 			},
 			{
 				sequelize

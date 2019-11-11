@@ -1,11 +1,11 @@
 import * as Yup from 'yup'
-import { parseISO, addMonths, subDays, format } from 'date-fns'
+import { parseISO, addMonths, subDays, format, isYesterday } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import Enrollment from '../models/Enrollment'
 import Plan from '../models/Plan'
 import Student from '../models/Student'
 
-import EnrollmentMail from '../jobs/EnrollmentMail'
+import EnrollmentCreatedMail from '../jobs/EnrollmentCreatedMail'
 import Queue from '../../lib/Queue'
 
 const { Op } = require('sequelize')
@@ -18,35 +18,46 @@ class EnrollmentController {
 			start_date: Yup.date().required()
 		})
 
+		/** Validação do schema */
 		if (!(await schema.isValid(req.body))) {
-			return res.status(400).json({ error: 'Validations fails' })
+			return res.status(400).json({ error: 'Invalid enrollment' })
 		}
 
 		const { student_id, plan_id, start_date } = req.body
 
 		/** Cálculo do preço total do plano */
-		const studentPlan = await Plan.findByPk(plan_id)
-		const { duration, price } = studentPlan
-		const totalPrice = duration * price
+		const { duration, price } = await Plan.findByPk(plan_id)
+		const planPrice = duration * price
 
 		/** Calcular a data final (end_date) do plano de matrícula (enrollment) */
-		/** Para se inscrever no mesmo dia, foi necessário subtrair por 1 */
 		const parsedStartDate = parseISO(start_date)
+		/** Para permitir se inscrever no mesmo dia, foi necessário subtrair por 1 dia */
 		const parsedEndDate = subDays(addMonths(parsedStartDate, duration), 1)
 
+		/** Evitar que o aluno se matricule para uma data anterior a atual */
+		if (await isYesterday(parsedStartDate)) {
+			/** Se o resultado for true, ele não poderá se matricular */
+			return res.status(400).json({
+				error: 'Registration date cannot be earlier than current date'
+			})
+		}
+
 		/** Obter dados para verificar se o aluno possui matrícula vigente */
-		const enrollmentValid = await Enrollment.findOne({
+		const enrollmentIsValid = await Enrollment.findOne({
 			where: {
 				student_id,
-				/** "Op.get" é um operador, utiliza o ">=", no caso para relacionar com o último dia
-				 * ser maior que o início da matrícula
-				 */
+				/** "Op.gte" é um operador do sequelize, utiliza o ">=" para verificar se a data
+				 * final da matrícula é maior que o início, se não for, ele preenche a variável com
+				 * "IS NULL" */
 				end_date: {
 					[Op.gte]: parsedStartDate
 				}
 			},
-			/** Utiliza uma matriz de itens para ordenar a consulta ou um método de sequenciação */
+			/** Utiliza uma matriz de itens para ordenar a consulta ou um método de sequenciação,
+			 * neste caso por ordem de data final
+			 */
 			order: ['end_date'],
+			/** Inclui o model "student" na validação, para consultar se o aluno existe. */
 			include: [
 				{
 					model: Student,
@@ -57,8 +68,8 @@ class EnrollmentController {
 		})
 
 		/** Verificar se o aluno possui matrícula vigente */
-		if (enrollmentValid !== null) {
-			const { end_date, student } = enrollmentValid
+		if (enrollmentIsValid !== null) {
+			const { end_date, student } = enrollmentIsValid
 			const formattedDate = format(end_date, "dd 'de' MMMM 'de' yyyy", {
 				locale: pt
 			})
@@ -71,12 +82,13 @@ class EnrollmentController {
 		const enrollmentSave = await Enrollment.create({
 			student_id,
 			plan_id,
-			price: totalPrice,
+			price: planPrice,
 			start_date,
 			end_date: parsedEndDate
 		})
 
-		/** Pegar os dados completos para enviar o email */
+		/** Pega os dados do cadastro da matrícula, inclui os dados do aluno "student" e do
+		 * plano "plan" os guardando em "enrollment" para enviar o email em seguida */
 		const enrollment = await Enrollment.findByPk(enrollmentSave.id, {
 			include: [
 				{
@@ -92,14 +104,14 @@ class EnrollmentController {
 			]
 		})
 
-		/** Enviar o email de matrícula */
-		await Queue.add(EnrollmentMail.key, { enrollment })
+		/** Enviar o email de confirmação de matrícula */
+		await Queue.add(EnrollmentCreatedMail.key, { enrollment })
 
-		return res.json(enrollment)
+		return res.json(enrollmentSave)
 	}
 
 	/** Listagem das Matrículas */
-	async list(req, res) {
+	async index(req, res) {
 		const enrollment = await Enrollment.findAll()
 
 		return res.status(200).json(enrollment)

@@ -7,9 +7,10 @@
   "author": "Gustavo Moreira <gustavomoreira88@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "dev:debug": "nodemon --inspect src/server.js",
-    "queue": "nodemon src/queue.js"
+    "dev": "npm-run-all -p dev:*",
+    "dev:server": "nodemon src/server.js",
+    "dev:queue": "nodemon src/queue.js",
+    "debug": "nodemon --inspect src/server.js"
   },
   "dependencies": {
     "@sentry/node": "5.7.1",
@@ -26,6 +27,7 @@
     "mysql2": "^2.0.0",
     "nodemailer": "^6.3.1",
     "nodemailer-express-handlebars": "^3.1.0",
+    "npm-run-all": "^4.1.5",
     "sequelize": "^5.21.2",
     "youch": "^2.0.10",
     "yup": "^0.27.0"

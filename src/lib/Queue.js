@@ -1,13 +1,14 @@
 import Bee from 'bee-queue'
-import EnrollmentMail from '../app/jobs/EnrollmentMail'
+import EnrollmentCreatedMail from '../app/jobs/EnrollmentCreatedMail'
 import AnswerMail from '../app/jobs/AnswerMail'
 import redisConfig from '../config/redis'
 
 /** Cada novo job será importado e colocado no vetor abaixo */
-const jobs = [EnrollmentMail, AnswerMail]
+const jobs = [EnrollmentCreatedMail, AnswerMail]
 
 class Queue {
 	constructor() {
+		/** Todos os jobs são armazenados aqui */
 		this.queues = {}
 
 		this.init()
@@ -18,6 +19,7 @@ class Queue {
 			this.queues[key] = {
 				/** "bee" armazena a fila com a conexão ao BD */
 				bee: new Bee(key, {
+					/** Configuração do BD de email */
 					redis: redisConfig
 				}),
 				/** Responsável por processar o job -> vem de jobs/CancellationMail.js ou qualquer outra
@@ -36,6 +38,7 @@ class Queue {
 		return this.queues[queue].bee.createJob(job).save()
 	}
 
+	/** Percorre cada job, busca o "bee" e "handle" da fila relacionado com o job a ser processado */
 	processQueue() {
 		jobs.forEach(job => {
 			const { bee, handle } = this.queues[job.key]

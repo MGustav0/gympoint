@@ -8,8 +8,8 @@ class AnswerMail {
 	async handle({ data }) {
 		const { response } = data
 
-		console.log('A fila andou!')
-		console.log(response)
+		/* console.log('A fila andou!')
+		console.log(response) */
 
 		await Mail.sendMail({
 			to: `${response.student.name} <${response.student.email}>`,
