@@ -46,7 +46,7 @@ class PlanController {
 	}
 
 	/** Listagem dos planos */
-	async list(req, res) {
+	async index(req, res) {
 		const plan = await Plan.findAll()
 
 		return res.status(200).json(plan)

@@ -61,6 +61,25 @@ class StudentController {
 		})
 	}
 
+	/** Listagem geral dos estudantes */
+	async list(req, res) {
+		const { name } = req.query
+
+		/** Receber "name" como Query -> adicionar rota no routes.js */
+		if (name) {
+			const student = await Student.findAll({
+				where: { name: req.body.name }
+			})
+
+			return res.status(200).json(student)
+		}
+
+		/** Listagem Geral - Sem Query */
+		const student = await Student.findAll()
+
+		return res.status(200).json(student)
+	}
+
 	/** Altera dados do Aluno
 	 * O id é disponibilizado pelo SessionController.js através do Middleware: auth.js
 	 */
