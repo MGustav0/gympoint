@@ -14,33 +14,30 @@ class HelpOrderController {
 		}
 
 		/** Validar studentId */
-		const { id } = req.params
-		const { question } = req.body
+		const student = await Student.findByPk(req.params.id)
 
-		const student = await Student.findByPk(id)
 		if (!student) {
-			return res.status(400).json({ error: "Student doesn't exists." })
+			return res.status(400).json({ error: "Student doesn't exists" })
 		}
 
 		/** Após a validação, criar o Pedido de Auxílio */
 		const help_order = await HelpOrder.create({
-			student_id: id,
-			question
+			student_id: student.id,
+			question: req.body.question
 		})
 
-		return res.json({
-			help_order,
-			student: { student_id: id, student_name: student.name }
-		})
+		return res.json(help_order)
 	}
 
 	/** Listagem dos pedidos de auxílio do aluno */
-	async list(req, res) {
+	async index(req, res) {
+		/** Validar se aluno existe */
 		const student = await Student.findByPk(req.params.id)
 		if (!student) {
 			return res.status(400).json({ error: "Student doesn't exists." })
 		}
 
+		/** Listar os pedidos de auxílio */
 		const help_order = await HelpOrder.findAll({
 			where: {
 				student_id: req.params.id

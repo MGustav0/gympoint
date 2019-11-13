@@ -10,14 +10,6 @@ class EnrollmentMail {
 	async handle({ data }) {
 		const { enrollment } = data
 
-		/* console.log('A fila andou!')
-		console.log(enrollment)
-		console.log(
-			format(parseISO(enrollment.start_date), 'dd/MM/yyyy', {
-				locale: pt
-			})
-		) */
-
 		await Mail.sendMail({
 			to: `${enrollment.student.name} <${enrollment.student.email}>`,
 			subject: 'Matrícula confirmada',

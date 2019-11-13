@@ -7,7 +7,7 @@ import StudentController from './app/controllers/StudentController'
 import PlanController from './app/controllers/PlanController'
 import EnrollmentController from './app/controllers/EnrollmentController'
 import CheckinController from './app/controllers/CheckinController'
-import AnswerController from './app/controllers/AnswerController'
+import AnswerHelpOrderController from './app/controllers/AnswerHelpOrderController.js'
 import HelpOrderController from './app/controllers/HelpOrderController'
 
 import authMiddleware from './app/middlewares/auth'
@@ -19,11 +19,9 @@ routes.post('/sessions', SessionController.store)
 
 /** Rotas de realização e listagem de checkin dos alunos */
 routes.post('/students/:id/checkins', CheckinController.store)
-routes.get('/students/:id/checkins', CheckinController.index)
 
-/** Rotas de pedido de ajuda dos alunos */
+/** Rota para realizar pedido de ajuda pelos alunos */
 routes.post('/students/:id/help-orders', HelpOrderController.store)
-routes.get('/students/:id/help-orders', HelpOrderController.list)
 
 /** Middleware de autenticação -> Vale apenas para rotas abaixo dele. */
 routes.use(authMiddleware)
@@ -52,8 +50,12 @@ routes.get('/enrollments/:id', EnrollmentController.details)
 routes.put('/enrollments/:id', EnrollmentController.update)
 routes.delete('/enrollments/:id', EnrollmentController.delete)
 
-/** */
-routes.post('/help-orders/:id/answer', AnswerController.store)
-routes.get('/help-orders/', AnswerController.list)
+/** Rota para consulta de check-in do usuário */
+routes.get('/students/:id/checkins', CheckinController.index)
+
+/** Rotas de listagem e resposta dos pedidos de ajuda */
+routes.get('/help-orders/', AnswerHelpOrderController.index)
+routes.get('/students/:id/help-orders', HelpOrderController.index)
+routes.post('/help-orders/:id/answer', AnswerHelpOrderController.store)
 
 export default routes
