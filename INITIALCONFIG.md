@@ -255,7 +255,7 @@ Para criar uma imagem do **MySQL**, basta colocar o seguinte comando no terminal
 #### phpMyAdmin  
 Para criar uma imagem do **phpMyAdmin4**, basta colocar o seguinte comando no terminal:
   
-* ```docker run --name phpmyadmin01 -d --link mysql01:db -p 8080:80 phpmyadmin/phpmyadmin```
+* ```docker run --name phpmyadmin -d --link gympointMysql:db -p 8080:80 phpmyadmin/phpmyadmin```
 * Coloque a porta que estiver livre, no caso a **8080**.
 * Acesse pelo browser o [localhost](http://localhost:8080/ "localhost")
 * Nas configurações iniciais o **_host name/address_** deverá ser: ```host.docker.internal```
@@ -268,7 +268,7 @@ Para criar uma imagem do **phpMyAdmin4**, basta colocar o seguinte comando no te
   
 Acesse a imagem utilizando o terminal e o comando de acesso pelo docker e execute esta sequência de comandos:
 
-1. ```docker exec -it mysql01 bash``` - ```mysql01``` pode ser substituído pelo nome da imagem em uso.
+1. ```docker exec -it gympointMysql bash``` - ```gympointMysql``` pode ser substituído pelo nome da imagem em uso.
 2. ```mysql -u root -p```
 3. ```ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'docker';```
   

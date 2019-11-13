@@ -1,5 +1,12 @@
 import * as Yup from 'yup'
-import { parseISO, addMonths, subDays, format, isYesterday } from 'date-fns'
+import {
+	parseISO,
+	addMonths,
+	format,
+	startOfDay,
+	compareDesc,
+	subHours
+} from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import Enrollment from '../models/Enrollment'
 import Plan from '../models/Plan'
@@ -29,35 +36,31 @@ class EnrollmentController {
 		const { duration, price } = await Plan.findByPk(plan_id)
 		const planPrice = duration * price
 
-		/** Calcular a data final (end_date) do plano de matrícula (enrollment) */
 		const parsedStartDate = parseISO(start_date)
-		/** Para permitir se inscrever no mesmo dia, foi necessário subtrair por 1 dia */
-		const parsedEndDate = subDays(addMonths(parsedStartDate, duration), 1)
+
+		/** Fazer com que a hora seja resetada para 00:00 */
+		const startDay = startOfDay(parsedStartDate)
+
+		/** Permitir se matricular no mesmo dia */
+		const endDate = addMonths(startDay, duration)
 
 		/** Evitar que o aluno se matricule para uma data anterior a atual */
-		if (await isYesterday(parsedStartDate)) {
+		if (await (compareDesc(new Date(), startDay) === -1)) {
 			/** Se o resultado for true, ele não poderá se matricular */
-			return res.status(400).json({
+			return res.status(401).json({
 				error: 'Registration date cannot be earlier than current date'
 			})
 		}
 
-		/** Obter dados para verificar se o aluno possui matrícula vigente */
+		/** Obter dados da tabela para verificar se o aluno possui matrícula vigente */
 		const enrollmentIsValid = await Enrollment.findOne({
 			where: {
 				student_id,
-				/** "Op.gte" é um operador do sequelize, utiliza o ">=" para verificar se a data
-				 * final da matrícula é maior que o início, se não for, ele preenche a variável com
-				 * "IS NULL" */
 				end_date: {
-					[Op.gte]: parsedStartDate
+					[Op.gte]: startDay
 				}
 			},
-			/** Utiliza uma matriz de itens para ordenar a consulta ou um método de sequenciação,
-			 * neste caso por ordem de data final
-			 */
 			order: ['end_date'],
-			/** Inclui o model "student" na validação, para consultar se o aluno existe. */
 			include: [
 				{
 					model: Student,
@@ -67,7 +70,7 @@ class EnrollmentController {
 			]
 		})
 
-		/** Verificar se o aluno possui matrícula vigente */
+		/** Verificar se o aluno possui matrícula vigente, a chamada acima retorna um "boolean" */
 		if (enrollmentIsValid !== null) {
 			const { end_date, student } = enrollmentIsValid
 			const formattedDate = format(end_date, "dd 'de' MMMM 'de' yyyy", {
@@ -83,8 +86,8 @@ class EnrollmentController {
 			student_id,
 			plan_id,
 			price: planPrice,
-			start_date,
-			end_date: parsedEndDate
+			start_date: subHours(startDay, 5),
+			end_date: endDate
 		})
 
 		/** Pega os dados do cadastro da matrícula, inclui os dados do aluno "student" e do

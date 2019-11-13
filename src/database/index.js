@@ -18,6 +18,7 @@ const models = [User, Student, Plan, Enrollment, HelpOrder]
 class Database {
 	constructor() {
 		this.init()
+		this.mongo()
 	}
 
 	/** Responsável pela conexão com o BD */
