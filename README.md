@@ -2,8 +2,13 @@
 
 **Descrição:** Projeto de desafio para Bootcamp 2019 da Rocketseat.
 
-## Documentação do projeto
+## Requisitos
   
+1. https://git.io/JerCg
+2. https://git.io/JerCz
+  
+## Documentação do projeto
+
 **Tecnologias utilizadas back-end**  
 * NodeJS
 * Banco de Dados: MySQL, MongoDB e Redis.
@@ -23,7 +28,6 @@
 * Javascript
 * JSX
   
-
-### Arquivos de documentação
+## Arquivos de documentação
   
 A documentação está integrada nas pastas, de acordo com o nome de cada uma, funções, arquivos e instruções, quando necessário.
