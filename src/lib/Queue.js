@@ -1,10 +1,10 @@
 import Bee from 'bee-queue'
 import EnrollmentCreatedMail from '../app/jobs/EnrollmentCreatedMail'
-import AnswerMail from '../app/jobs/AnswerMail'
+import AnswerHelpOrderMail from '../app/jobs/AnswerHelpOrderMail'
 import redisConfig from '../config/redis'
 
 /** Cada novo job será importado e colocado no vetor abaixo */
-const jobs = [EnrollmentCreatedMail, AnswerMail]
+const jobs = [EnrollmentCreatedMail, AnswerHelpOrderMail]
 
 class Queue {
 	constructor() {

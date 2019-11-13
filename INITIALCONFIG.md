@@ -206,7 +206,7 @@ Para criar uma imagem do **PostgreSQL**, basta colocar o seguinte comando no ter
 * ```docker run --name postgres01 -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres```
 * Verificar se a imagem está rodando: ```docker ps```
 * Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
-* Usuário: postgres
+* academia: postgres
 * Senha: docker
 * Acesso pelo terminal: ```docker exec -it nome_do_container bash```
   
@@ -227,7 +227,7 @@ Para criar uma imagem do **MongoDB**, basta colocar o seguinte comando no termin
 * Criar com senha: ```docker run --name nome_de_producao -p 27017:27017 -e MONGODB_PASS="mypass" -t mongo```
 * Verificar se a imagem está rodando: ```docker ps```
 * Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
-* Usuário: 
+* academia: 
 * Senha: 
 * Acesso pelo terminal: ```docker exec -it nome_do_container bash```
   
@@ -239,7 +239,7 @@ Para criar uma imagem do **Redis**, basta colocar o seguinte comando no terminal
 * O comando ```redis:apine``` traz as features mais essenciais do linux.
 * Verificar se a imagem está rodando: ```docker ps```
 * Verificar os logs da imagem (nome_da_imagem = database): ```docker logs nome_da_imagem```
-* Usuário: 
+* academia: 
 * Senha: 
 * Acesso pelo terminal: ```docker exec -it nome_do_container bash```
 

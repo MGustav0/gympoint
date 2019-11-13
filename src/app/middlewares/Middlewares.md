@@ -4,5 +4,5 @@
   
 ## Arquivos
 
-* **auth.js:** Verifica se o usuário está logado.
+* **auth.js:** Verifica se um o token passado para realizar o login do funcionário na aplicação é válido.
 * **.js:** 

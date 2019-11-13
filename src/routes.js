@@ -28,7 +28,7 @@ routes.use(authMiddleware)
 
 /** Rotas com uso de autenticação */
 
-/** Rotas de criação e atualização de usuários administradores */
+/** Rotas de criação e atualização de academias administradores */
 routes.post('/users', UserController.store)
 routes.put('/users', UserController.update)
 
@@ -50,7 +50,7 @@ routes.get('/enrollments/:id', EnrollmentController.details)
 routes.put('/enrollments/:id', EnrollmentController.update)
 routes.delete('/enrollments/:id', EnrollmentController.delete)
 
-/** Rota para consulta de check-in do usuário */
+/** Rota para consulta de check-in da academia */
 routes.get('/students/:id/checkins', CheckinController.index)
 
 /** Rotas de listagem e resposta dos pedidos de ajuda */

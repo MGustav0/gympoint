@@ -8,7 +8,7 @@ const { Op } = require('sequelize')
 
 class CheckinController {
 	async store(req, res) {
-		/** Valida se há este estudante */
+		/** Valida se há este aluno */
 		const student = await Student.findByPk(req.params.id)
 
 		if (!student) {

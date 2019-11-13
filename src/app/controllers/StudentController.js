@@ -3,12 +3,12 @@ import Student from '../models/Student'
 
 class StudentController {
 	/** Possui a mesma face de um middleware dentro do nodejs, recebe os dados de criação do
-	 * usuário e cria um novo registro dentro do BD.
+	 * aluno e cria um novo registro dentro do BD.
 	 */
 	async store(req, res) {
 		/** O Yup segue o "schema validation" */
 		/** Valida o objeto req.body, com um formato e tipos específicos e realiza validação
-		 * automática de um email, verifica se existe "@", ".com", etc. A senha de ni mínimo
+		 * automática de um email, verifica se existe "@", ".com", etc. A senha de no mínimo
 		 * 6 dígitos.
 		 */
 		const schema = Yup.object().shape({
@@ -33,7 +33,7 @@ class StudentController {
 			return res.status(400).json({ error: 'Validation fails' })
 		}
 
-		/** Verificação de existencia de usuário */
+		/** Verificação de existencia de academia */
 		const studentExists = await Student.findOne({
 			where: { email: req.body.email }
 		})
@@ -61,7 +61,7 @@ class StudentController {
 		})
 	}
 
-	/** Listagem geral dos estudantes */
+	/** Listagem geral dos alunos */
 	async index(req, res) {
 		const { name } = req.query
 
@@ -114,7 +114,7 @@ class StudentController {
 			}
 		}
 
-		/** Atualiza o usuário com as informações passadas */
+		/** Atualiza a academia com as informações passadas */
 		const { name, age, weight, height } = await student.update(req.body)
 
 		/** Podemos passar a variável "student" no lugar da constante desestruturada acima em conjunto

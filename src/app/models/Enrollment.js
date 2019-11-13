@@ -17,7 +17,7 @@ class Enrollment extends Model {
 	}
 
 	/** Chamado automaticamente pelo loader de models em "database/index.js", um constructor
-	 * Para associar os models em um relacionamento, pois o estudante faz a matrícula e tem um
+	 * Para associar os models em um relacionamento, pois o aluno faz a matrícula e tem um
 	 * plano de matrícula.
 	 */
 	static associate(models) {

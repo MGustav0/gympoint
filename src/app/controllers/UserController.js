@@ -3,7 +3,7 @@ import User from '../models/User'
 
 class UserController {
 	/** Possui a mesma face de um middleware dentro do nodejs, recebe os dados de criação do
-	 * usuário e cria um novo registro dentro do BD.
+	 * academia e cria um novo registro dentro do BD.
 	 */
 	async store(req, res) {
 		/** O Yup segue o "schema validation" */
@@ -25,7 +25,7 @@ class UserController {
 			return res.status(400).json({ error: 'Validation fails' })
 		}
 
-		/** Verificação de existencia de usuário */
+		/** Verificação de existencia do funcionário da academia */
 		const userExists = await User.findOne({ where: { email: req.body.email } })
 
 		if (userExists) {
@@ -45,7 +45,7 @@ class UserController {
 		})
 	}
 
-	/** Altera dados do usuário
+	/** Altera dados do academia
 	 * O id é disponibilizado pelo SessionController.js através do Middleware: auth.js
 	 */
 	async update(req, res) {
@@ -53,7 +53,7 @@ class UserController {
 			name: Yup.string(),
 			email: Yup.string().email(),
 			oldPassword: Yup.string().min(6),
-			/** Se o usuário digitar o oldPassword, o novo password será obrigatório
+			/** Se a academia digitar o oldPassword, o novo password será obrigatório
 			 * Passa uma função para garantir que passe a senha.
 			 * Se "oldPassword" estiver preenchida, o field vai ser requerido, se não
 			 * retorna como estava antes.
@@ -92,7 +92,7 @@ class UserController {
 			return res.status(401).json({ error: 'Password does not match' })
 		}
 
-		/** Atualiza o usuário com as informações passadas */
+		/** Atualiza a academia com as informações passadas */
 		const { id, name, provider } = await user.update(req.body)
 
 		return res.json({

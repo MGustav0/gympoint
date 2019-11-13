@@ -3,7 +3,7 @@ import { Op } from 'sequelize'
 import HelpOrder from '../models/HelpOrder'
 import Student from '../models/Student'
 
-import AnswerMail from '../jobs/AnswerMail'
+import AnswerHelpOrderMail from '../jobs/AnswerHelpOrderMail'
 import Queue from '../../lib/Queue'
 
 class AnswerHelpOrderController {
@@ -48,8 +48,8 @@ class AnswerHelpOrderController {
 
 		const response = await helpOrderExists.update(req.body)
 
-		/** Enviar email com a resposta da academia ao usuário */
-		await Queue.add(AnswerMail.key, { response })
+		/** Enviar email com a resposta da academia para o aluno */
+		await Queue.add(AnswerHelpOrderMail.key, { response })
 
 		return res.status(200).json(response)
 	}

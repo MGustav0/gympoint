@@ -19,7 +19,7 @@ class User extends Model {
 
 		/** Hook -> Trechos de código executados de forma automática baseado em ações que
 		 * acontecem no model.
-		 * Neste caso, ateraremos o usuário antes de salvar.
+		 * Neste caso, ateraremos a academia antes de salvar.
 		 */
 		this.addHook('beforeSave', async user => {
 			if (user.password) {

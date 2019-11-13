@@ -6,17 +6,18 @@
   
 **Tecnologias utilizadas back-end**  
 * NodeJS
-* Bibliotecas: Express, Sequelize, Sucrase, ESLint e Prettier
-* Banco de Dados: MySQL
-* AJAX
+* Banco de Dados: MySQL, MongoDB e Redis.
+* Bibliotecas: Express, Sequelize, Sucrase, ESLint, Prettier, Nodemailer, Mongoose, Bee_Queue, Sequelize. _Mais informações no packaje.json da aplicação_
   
 **Linguagens back-end**  
 * Javascript
 * JSON
+* SQL
   
 **Tecnologias utilizadas back-end**  
 * ReactJS
 * ReactNative
+* AJAX
   
 **Linguagens front-end**  
 * Javascript
