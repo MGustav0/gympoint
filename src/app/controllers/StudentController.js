@@ -62,7 +62,7 @@ class StudentController {
 	}
 
 	/** Listagem geral dos estudantes */
-	async list(req, res) {
+	async index(req, res) {
 		const { name } = req.query
 
 		/** Receber "name" como Query -> adicionar rota no routes.js */

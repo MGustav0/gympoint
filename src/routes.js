@@ -17,9 +17,9 @@ const routes = new Router()
 /** Rota de criação de sessão */
 routes.post('/sessions', SessionController.store)
 
-/** Rotas de checkin dos alunos */
+/** Rotas de realização e listagem de checkin dos alunos */
 routes.post('/students/:id/checkins', CheckinController.store)
-routes.get('/students/:id/checkins', CheckinController.list)
+routes.get('/students/:id/checkins', CheckinController.index)
 
 /** Rotas de pedido de ajuda dos alunos */
 routes.post('/students/:id/help-orders', HelpOrderController.store)
@@ -36,7 +36,7 @@ routes.put('/users', UserController.update)
 
 /** Rotas de criação e atualização de alunos */
 routes.post('/student', StudentController.store)
-routes.get('/student', StudentController.list)
+routes.get('/student', StudentController.index)
 routes.put('/student/:id', StudentController.update)
 
 /** Rotas dos planos de matrícula */

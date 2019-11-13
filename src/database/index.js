@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize'
+import mongoose from 'mongoose'
 
 /** Importação dos "models" para conexão com o BD enviando a variável "connection",
  * através do método "init()" */
@@ -6,14 +7,13 @@ import User from '../app/models/User'
 import Student from '../app/models/Student'
 import Plan from '../app/models/Plan'
 import Enrollment from '../app/models/Enrollment'
-import Checkin from '../app/models/Checkin'
 import HelpOrder from '../app/models/HelpOrder'
 
 /** Importação das configurações do BD PostgreSQL */
 import databaseConfig from '../config/database'
 
 /** Array com os "models" da aplicação */
-const models = [User, Student, Plan, Enrollment, Checkin, HelpOrder]
+const models = [User, Student, Plan, Enrollment, HelpOrder]
 
 class Database {
 	constructor() {
@@ -34,6 +34,14 @@ class Database {
 			 * "this.connection.models"
 			 */
 			.map(model => model.associate && model.associate(this.connection.models))
+	}
+
+	mongo() {
+		this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+			useNewUrlParser: true,
+			useFindAndModify: true,
+			useUnifiedTopology: true
+		})
 	}
 }
 
